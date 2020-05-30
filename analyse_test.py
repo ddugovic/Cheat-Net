@@ -47,8 +47,10 @@ def analyse_pkl(dr, pkl_names):
 	print len(unmarked)
 	print unmarked
 
-print 'LEGITS'
-analyse_pkl('test-data/saved/legits/', legits_pkl)
-print ''
-print 'CHEATERS'
-analyse_pkl('test-data/saved/cheaters/', cheaters_pkl)
+
+def test():
+    print 'LEGITS'
+    analyse_pkl('test-data/saved/legits/', legits_pkl)
+    print ''
+    print 'CHEATERS'
+    analyse_pkl('test-data/saved/cheaters/', cheaters_pkl)
