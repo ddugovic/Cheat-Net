@@ -2,8 +2,8 @@ import tensorflow as tf
 import os
 
 def combine_inputs(X):
-    playerandgamesfnn = tf.contrib.layers.stack(X,
-        tf.contrib.layers.fully_connected,
+    playerandgamesfnn = tf.stack(X,
+        tf.keras.layers.Dense,
         [40, 10, 10, 2]
         )
 
@@ -50,7 +50,7 @@ def read_csv(batch_size, record_defaults):
 def learn():
     graph = tf.Graph()
     with graph.as_default():
-        with tf.Session(graph=graph) as sess:
+        with tf.compat.v1.Session(graph=graph) as sess:
             X, Y = inputs()
             ## initliase graph for running
             with tf.name_scope("global_ops"):
@@ -120,8 +120,8 @@ def learn():
 def apply_net(batch):
     graph = tf.Graph()
     with graph.as_default():
-        with tf.Session(graph=graph) as sess:
-            a = tf.placeholder(tf.float32, shape=[None, 11])
+        with tf.compat.v1.Session(graph=graph) as sess:
+            a = tf.compat.v1.placeholder(tf.float32, shape=[None, 11])
             infer = inference(a)
             feed_dict = {a: batch}
             ## initliase graph for running
