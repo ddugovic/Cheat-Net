@@ -39,18 +39,18 @@ def analyse_pkl(dr, pkl_names):
 					unmarked.append((p.name, activation))
 		except EOFError:
 			pass
-	print 'Maxim: '+str(maxim)
-	print 'MARKED'
-	print len(marked)
-	print marked
-	print 'UNMARKED'
-	print len(unmarked)
-	print unmarked
+	print ('Maxim: '+str(maxim))
+	print ('MARKED')
+	print (len(marked))
+	print (marked)
+	print ('UNMARKED')
+	print (len(unmarked))
+	print (unmarked)
 
 
 def test():
-    print 'LEGITS'
+    print ('LEGITS')
     analyse_pkl('test-data/saved/legits/', legits_pkl)
-    print ''
-    print 'CHEATERS'
+    print ('')
+    print ('CHEATERS')
     analyse_pkl('test-data/saved/cheaters/', cheaters_pkl)

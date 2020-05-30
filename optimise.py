@@ -84,10 +84,10 @@ def optimise():
         else:
             c_incorrect += 1
 
-    print 'Cheaters Correct: '+str(c_correct)
-    print 'Cheaters Incorrect: '+str(c_incorrect)
-    print 'Legits Correct: '+str(l_correct)
-    print 'Legits incorrect: '+str(l_incorrect)
+    print ('Cheaters Correct: '+str(c_correct))
+    print ('Cheaters Incorrect: '+str(c_incorrect))
+    print ('Legits Correct: '+str(l_correct))
+    print ('Legits incorrect: '+str(l_incorrect))
 
     with open('neuralnet.pkl', 'w+') as output:
         pickle.dump(n, output)

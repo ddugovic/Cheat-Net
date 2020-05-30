@@ -27,7 +27,7 @@ def dump_csv_training_data(token):
         for i in legits_pkl:
             try:
                 with open('test-data/saved/legits/'+i, 'rb') as ap_f:
-                    print i
+                    print (i)
                     ap = pickle.load(ap_f)
                     add_row(writer, ap, False, token)
             except EOFError:
@@ -35,7 +35,7 @@ def dump_csv_training_data(token):
         for i in cheaters_pkl:
             try:
                 with open('test-data/saved/cheaters/'+i, 'rb') as ap_f:
-                    print i
+                    print (i)
                     ap = pickle.load(ap_f)
                     add_row(writer, ap, True, token)
             except EOFError:

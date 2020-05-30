@@ -99,16 +99,16 @@ def learn():
                                 p += 1
                             else:
                                 ind += 1
-                    print compar
-                    print "Step: ", step
-                    print "True P:   " + str(100*tp/p) + "% (" + str(tp) + ")"
-                    print "True N:   " + str(100*tn/n) + "% (" + str(tn) + ")"
-                    print "False P:  " + str(100*fp/p) + "% (" + str(fp) + ")"
-                    print "False N:  " + str(100*fn/n) + "% (" + str(fn) + ")"
-                    print "Indecise: " + str(100*ind/800) + "% (" + str(ind) + ")"
-                    print "loss: ", tloss
-                    print "eval: ", eva
-                    print " "
+                    print (compar)
+                    print ("Step: ", step)
+                    print ("True P:   " + str(100*tp/p) + "% (" + str(tp) + ")")
+                    print ("True N:   " + str(100*tn/n) + "% (" + str(tn) + ")")
+                    print ("False P:  " + str(100*fp/p) + "% (" + str(fp) + ")")
+                    print ("False N:  " + str(100*fn/n) + "% (" + str(fn) + ")")
+                    print ("Indecise: " + str(100*ind/800) + "% (" + str(ind) + ")")
+                    print ("loss: ", tloss)
+                    print ("eval: ", eva)
+                    print (" ")
                     saver.save(sess, './models/model', global_step=step)
 
             coord.request_stop()
