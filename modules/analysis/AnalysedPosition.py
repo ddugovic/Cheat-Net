@@ -1,3 +1,4 @@
+import numpy as np
 from operator import methodcaller
 from modules.analysis.tools import bounded_eval, scaled_eval
 

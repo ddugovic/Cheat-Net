@@ -87,7 +87,7 @@ def update_stockfish(filename):
             print("Found", asset["browser_download_url"])
             break
     else:
-        raise ConfigError("No precompiled %s for your platform" % filename)
+        raise OSError("No precompiled %s for your platform" % filename)
 
     # Download
     def reporthook(a, b, c):
