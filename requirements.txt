@@ -1,4 +1,4 @@
-colorama==0.3.7
+colorama==0.4.3
 python-chess==0.15.0
 requests==2.24.0
 tensorflow==2.2.0
