@@ -3,8 +3,9 @@
 """Analysing players for lichess.org"""
 
 import argparse
+import asyncio
 import chess
-import chess.uci
+import chess.engine
 import chess.pgn
 import logging
 import os
@@ -49,18 +50,15 @@ except ImportError:
 
 logging.basicConfig(format="%(message)s", level=settings.loglevel, stream=sys.stdout)
 logging.getLogger("requests.packages.urllib3").setLevel(logging.WARNING)
-logging.getLogger("chess.uci").setLevel(logging.WARNING)
+logging.getLogger("chess.engine").setLevel(logging.WARNING)
 
-engine = chess.uci.popen_engine(stockfish_command(False))
+engine = chess.engine.popen_uci(stockfish_command(False))
 engine.setoption({'Threads': settings.threads, 'Hash': settings.memory})
-engine.uci()
-info_handler = chess.uci.InfoHandler()
-engine.info_handlers.append(info_handler)
 
 
 """Start doing things"""
 
-def collect_analyse_save(userId):
+async def collect_analyse_save(userId):
     try:
         player_data = get_player_data(userId, settings.token)
         playerAssessments = [PlayerAssessment(i) for i in player_data['assessment']['playerAssessments']]
@@ -78,7 +76,7 @@ def collect_analyse_save(userId):
             player_data['relation']['followers'],
             len(list([x for x in player_data['history'] if x['type'] == 'report' and x['data']['reason'] == 'cheat' and x['data'].get('processedBy', None) is not None])))
 
-        [i.analyse(engine, info_handler) for i in ap.games]
+        [await i.analyse(engine) for i in ap.games]
 
         post_report(userId, ap.assess_and_report(), settings.token)
 
@@ -89,12 +87,18 @@ def collect_analyse_save(userId):
         post_report(userId, (False, 'No info available'), settings.token)
 
 
-while True:
-    if settings.train:
-        logging.debug(bcolors.OKBLUE + 'Organising test data...' + bcolors.ENDC)
-        organise_training_data(settings.token)
-        logging.debug(bcolors.OKBLUE + 'Loading organised test data to file...' + bcolors.ENDC)
-        dump_csv_training_data(settings.token)
-        learn()
-    for i in range(100):
-        collect_analyse_save(get_new_user_id(settings.token))
+async def main():
+    while True:
+        if settings.train:
+            logging.debug(bcolors.OKBLUE + 'Organising test data...' + bcolors.ENDC)
+            organise_training_data(settings.token)
+            logging.debug(bcolors.OKBLUE + 'Loading organised test data to file...' + bcolors.ENDC)
+            dump_csv_training_data(settings.token)
+            learn()
+        for i in range(100):
+            collect_analyse_save(get_new_user_id(settings.token))
+
+
+if __name__ == "__main__":
+    asyncio.set_event_loop_policy(chess.engine.EventLoopPolicy())
+    asyncio.run(main())

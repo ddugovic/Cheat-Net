@@ -4,7 +4,7 @@
 
 import argparse
 import chess
-import chess.uci
+import chess.engine
 import chess.pgn
 import logging
 import os
