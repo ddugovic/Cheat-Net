@@ -1,4 +1,4 @@
 colorama==0.4.4
-python-chess==1.1.0
+python-chess==1.2.0
 requests==2.24.0
 tensorflow==2.3.1
